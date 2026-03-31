@@ -64,10 +64,20 @@ Monitor listings, track trends, and analyze market dynamics with structured, ded
 
 ## FAQ
 
-<!-- WRITE: 4-6 Q&A pairs relevant to this product -->
-
 **Is it legal to scrape jobberman.com?**
 Web scraping of publicly available data is generally legal. This actor only accesses publicly visible information. Always check the target site's terms of service for your specific use case.
+
+**What kind of Jobberman data can I extract?**
+You can extract core job fields such as title, company, category, industry, location, salary text, salary min/max, apply URL, posting dates, and full descriptions when detail enrichment is enabled.
+
+**Can I monitor only new or changed jobs?**
+Yes. Enable incremental mode and keep a stable `stateKey` for each search universe. Subsequent runs will only emit listings that are new, updated, or expired.
+
+**Does it support AI-agent or MCP workflows?**
+Yes. Compact mode returns a smaller payload with core fields only, which is useful for LLM and MCP tool calls where context size matters.
+
+**Can I export the results to spreadsheets or databases?**
+Yes. Apify datasets can be exported as JSON, CSV, Excel, XML, and other formats, or consumed directly through the Apify API in your own pipeline.
 
 **How does incremental mode work?**
 Each listing gets a content hash. On subsequent runs, only new or changed listings are emitted — saving time, compute, and storage.
@@ -76,10 +86,10 @@ Each listing gets a content hash. On subsequent runs, only new or changed listin
 
 ## Known limitations
 
-<!-- WRITE: 4-6 honest limitations -->
-
-- <!-- WRITE: limitation 1 -->
-- <!-- WRITE: limitation 2 -->
+- Structured salary fields are strong but not universal. A small share of listings expose only salary text or confidential remuneration.
+- Direct contact data is limited on Jobberman. `applyUrl` is reliable, while `contactEmail` and external apply links appear only on a minority of listings.
+- `includeCompanyProfile` is reserved for future enrichment. The current actor does not crawl separate employer profile pages yet.
+- Detail-side experience information is often phrased as years of experience rather than a normalized seniority label, so the actor keeps `experienceLevel` and `experienceRequirement` separate.
 
 ---
 
